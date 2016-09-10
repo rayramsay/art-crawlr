@@ -17,7 +17,7 @@
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a href="" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-road"></span>   Let's Xplore</a>
+                                <a href="/map?latlng" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-road"></span>   Let's Xplore</a>
                             </li>
                         </ul>
                     </div>
@@ -28,4 +28,14 @@
         <!-- /.container -->
     </div>
     <!-- /.intro-header -->
+
+   <form action="/map" method="GET">
+
+      
+                <input type="text" name="latitude" value= "37.7944">
+                <input type="text" name="longitude" value= "-122.3958">
+          
+                <input type="submit" value="submit">
+        
+    </form>
 {% endblock %}
