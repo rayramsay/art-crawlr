@@ -38,20 +38,6 @@ def homepage():
 def map():
     """Page with art xplorer map."""
 
-    lat = request.args.get('latitude')
-    lng = request.args.get('longitude')
-    address = get_address(lat, lng)
-    zipcode = address.split(',')[-2]
-
-    # artworks = db.session.query(Artwork).filter_by(zipcode=zipcode).all()
-    # art_list = []
-    # for artwork in artworks:
-    #     art_list.append({'lat': artwork.lat, 'lng': artwork.lng})
-    # print art_list
-
-    art_list = [{'lat': 37.7977, 'lng': -122.394}, {'lat': 37.7977, 'lng': -122.394}, {'lat': 37.7971, 'lng': -122.398}]
-
-    return render_template("xplorer.html", artworks=artworks, art_list=art_list)
 
 
 if __name__ == "__main__":
