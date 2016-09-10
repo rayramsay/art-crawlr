@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}Art Xplrr{% endblock %}
+
+{% block css %}
+
+    <style>
+        /* Percentage-based sizes must inherit from parent block elements, and
+        if any of those ancestors fail to specify a size, they are assumed to be
+        0 x 0 pixels; therefore, html and body must specify a size for #map to
+        have height as a percentage. */
+        html, body {
+            height: 100%;
+        }
+
+        .row, .container-fluid {
+            height: 100%;
+        }
+
+        #map {
+            /*height: 92.67%;*/
+            height: 100%;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container-fluid">
+
+      <!-- first row needs to be moved down b/c fixed navbar -->
+      <div class="row" style="margin-top: 51px">
+
+        <div class="col-xs-12" id="map"></div>
+        <div id="directions-panel"></div>
+
+      </div><!-- close row -->
+    </div><!-- close container -->
+
+{% endblock %}
+
+{% block javascript %}
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQOKqWyayHzhpVSWddS3M9iy5a4X072Ug&v=3&libraries=places"></script>
+
+<script type="text/javascript">
+    var map;
+
+    function init(){
+        initMap();
+    }
+
+    function initMap(){
+
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var directionsService = new google.maps.DirectionsService();
+
+        // Create a map object and specify the DOM element for display.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 37.7886794, lng: -122.41153689999999},  // Hackbright
+            zoom: 12,
+            mapTypeControl: false,
+            streetViewControl: false,
+        });
+
+        // FIXME: Disabled for demoing.
+        // Try HTML5 geolocation; if successful, center map on user location.
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(function (position) {
+        //         var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        //         console.log(initialLocation.lat(), initialLocation.lng());
+        //         map.setCenter(initialLocation);
+        //         console.log("Geolocation and recentering successful.");
+        //     });
+        // }
+
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var start = {lat: 37.7886794, lng: -122.41153689999999};
+        var end = {lat: 37.7886794, lng: -122.41153689999999};
+        var waypts = [];
+
+        $.get('/map.json?latitude=37.7944&longitude=-122.3958', get_waypoints);
+        function get_waypoints(data){
+            console.log(data);
+            // debugger;
+
+            var responseWaypoints = data.waypoints;
+
+            for (var i = 0; i < responseWaypoints.length; i++) {
+                waypts.push({
+                    location: responseWaypoints[i],
+                    stopover: true
+                });
+              }
+
+            console.log('printing responseWaypoints');
+            console.log(responseWaypoints);
+        }
+
+        console.log('printing waypts');
+        console.log(waypts);
+
+
+
+        directionsService.route({
+          origin: start,
+          destination: end,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'WALKING',
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            directionsDisplay.setMap(map);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', init);
+</script>
+
+{% endblock%}
