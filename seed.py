@@ -8,7 +8,7 @@ import googlemaps
 #from server import app
 
 # Remember to ``source secrets.sh``!
-gmaps = googlemaps.Client(key=os.environ['GOOGLE_API_SERVER_KEY'])
+# gmaps = googlemaps.Client(key=os.environ['GOOGLE_API_SERVER_KEY'])
 
 
 def get_zip(lat, lng):
@@ -20,9 +20,9 @@ def get_zip(lat, lng):
     return zipcode
 
 
-def dictify(string):
-    """Given a JSON string, make it into a dictionary."""
-    return json.loads(string)
+# def dictify(string):
+#     """Given a JSON string, make it into a dictionary."""
+#     return json.loads(string)
 
 
 def load_artworks():
@@ -45,11 +45,6 @@ for item in art_list:
     location_description = item[16]
     medium = item[17]
     title = item[19]
-
-
-for item in art_list:
-    
-    latlongstring = json.loads(item[15])
 
 
 
