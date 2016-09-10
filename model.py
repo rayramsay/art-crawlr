@@ -9,6 +9,7 @@ db = SQLAlchemy()
 
 class Artwork(db.Model):
     """save artwork information"""
+
     __tablename__ = "artworks"
 
     artwork_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
@@ -19,7 +20,8 @@ class Artwork(db.Model):
     location_description = db.Column(db.Text, nullable=True)
     medium = db.Column(db.Text, nullable=True)
     title = db.Column(db.Text, nullable=True)
-    zipcode = db.Column(db.String(10), nullable=False)
+    address = db.Column(db.Text, nullable=True)
+    zipcode = db.Column(db.String(20), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -34,9 +36,22 @@ class Artwork(db.Model):
 #     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
     
 
+##############################################################################
+# Helper functions
 
-    
-    
+def connect_to_db(app, db_uri="postgresql:///art"):
+    """Connect the database to our Flask app."""
 
+    # Configure to use our PstgreSQL database
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    db.app = app
+    db.init_app(app)
 
+if __name__ == "__main__":
+    # As a convenience, if we run this module interactively, it will leave
+    # you in a state of being able to work with the database directly.
 
+    from server import app
+    connect_to_db(app)
+    db.create_all()  # create all tables
+    print "Connected to DB."

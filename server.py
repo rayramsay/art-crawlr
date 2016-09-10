@@ -31,11 +31,15 @@ def homepage():
 
     return render_template("homepage.html")
 
-@app.route('/xplorer')
-def xplorer():
+
+@app.route('/map', methods=['GET'])
+def map():
     """Page with art xplorer map."""
 
-    return render_template("xplorer.html", gkey=gkey)
+
+    artworks 
+
+    return render_template("map.html", )
 
 
 
