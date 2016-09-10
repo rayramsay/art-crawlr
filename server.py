@@ -31,6 +31,13 @@ def homepage():
 
     return render_template("homepage.html")
 
+@app.route('/xplorer')
+def xplorer():
+    """Page with art xplorer map."""
+
+    return render_template("xplorer.html", gkey=gkey)
+
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
