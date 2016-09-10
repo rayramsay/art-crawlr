@@ -1,6 +1,6 @@
 @rchive/
 env/
-working_files/
+working/
 data/
 logs/
 secrets.sh
