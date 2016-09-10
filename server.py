@@ -8,8 +8,10 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask import (Flask, render_template, redirect, request, flash,
                    session, jsonify)
 
-# from model import *
-# from flask_sqlalchemy import SQLAlchemy
+from seed import *
+
+from model import *
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
@@ -36,7 +38,15 @@ def homepage():
 def map():
     """Page with art xplorer map."""
 
-    return render_template("map.html")
+    lat = request.args.get('latitude')
+    lng = request.args.get('longitude')
+    address = get_address(lat, lng)
+    zipcode = address.split(',')[-2]
+
+    artwork = db.session.query(Artwork).filter_by(Artwork.zipcode.like('%%s%' % (zipcode))).all()
+
+    return render_template("map.html", artwork=artwork)
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
