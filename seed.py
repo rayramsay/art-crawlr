@@ -30,9 +30,9 @@ def load_artworks(start,stop):
 
     # Read SF_Civic_Art_Collection.csv file and insert data.
     
-art_seed = open("seed_data/SF_Civic_Art_Collection.json")
-json_dict = json.load(art_seed)
-art_list = json_dict['data']
+    art_seed = open("seed_data/SF_Civic_Art_Collection.json")
+    json_dict = json.load(art_seed)
+    art_list = json_dict['data']
 
     for item in art_list[start:stop]:
         artist = item[11]

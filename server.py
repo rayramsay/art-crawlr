@@ -37,8 +37,6 @@ def map():
     """Page with art xplorer map."""
 
 
-    artworks 
-
     return render_template("map.html", )
 
 
