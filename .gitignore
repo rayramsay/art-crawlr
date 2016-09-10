@@ -1,0 +1,10 @@
+@rchive/
+env/
+working_files/
+data/
+logs/
+secrets.sh
+*.pyc
+crontab.txt
+.coverage
+.DS_Store
