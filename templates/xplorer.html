@@ -2,31 +2,14 @@
 {% block title %}Art Xplorer{% endblock %}
 {% block content %}
 
-<!-- Google Map -->
-<div class="container" style="height: 80%">
-  <div id="homepage-map" style="height: 80%"></div>
-</div>
+<br>
+<br>
+<br>
 
-<script type="text/javascript">
+<h1>Hello there</h1>
 
-'use strict';
-
-// Global variables for Google Maps
-var map;
-var sanFrancisco = {lat: 37.7749, lng: -122.431297}; 
-var markersArray = [];
-
-// Create map upon page load
-function initMap() {
-  map = new google.maps.Map(document.getElementById('homepage-map'), {
-    center: sanFrancisco,
-    zoom: 14
-  });
-}
-
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key={{ gkey }}&callback=initMap"
-async defer></script>
+{% for artwork in artworks %}
+	{{ artwork.title }}<br>
+{% endfor %}
 
 {% endblock %}
