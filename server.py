@@ -86,6 +86,6 @@ if __name__ == "__main__":
     app.debug = True
     connect_to_db(app)
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
     app.jinja_env.auto_reload = True
     app.run(host='0.0.0.0')

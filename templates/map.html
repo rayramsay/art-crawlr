@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Art Xplrr{% endblock %}
+{% block title %}Art Xplorer{% endblock %}
 
 {% block css %}
 
@@ -125,6 +125,12 @@
 
         function makeMarkersAndReport(data) {
 
+    var startermarker = new google.maps.Marker({
+            position: initialLocation,
+            icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            map: map
+        });
+
     var markerInfo = data.art_info;
     makeAndSetMarkers(markerInfo);
 
@@ -157,14 +163,14 @@ function bindInfoWindow(marker, map, infoWindow, contentString) {
     // the string that's passed through, and then open the window with the new
     // content above that marker.
 
-    google.maps.event.addListener(marker, 'mouseover', function () {
+   google.maps.event.addListener(marker, 'click', function () {
         infoWindow.setContent(contentString);
         infoWindow.open(map, marker);
     });
 
     // When a marker is moused-out, close the info window.
 
-    // google.maps.event.addListener(marker, 'mouseout', function () {
+    // google.maps.event.addListener(marker, 'click', function () {
     //     infoWindow.close();
     // });
 }
