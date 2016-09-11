@@ -60,7 +60,7 @@
 
     function initMap(){
 
-        var directionsDisplay = new google.maps.DirectionsRenderer({suppressInfoWindows:true});
+        var directionsDisplay = new google.maps.DirectionsRenderer({suppressInfoWindows:true, suppressMarkers:true});
         var directionsService = new google.maps.DirectionsService();
 
         // Create a map object and specify the DOM element for display.
@@ -88,9 +88,6 @@
             'latitude': latitude,
             'longitude': longitude
         };
-
-        console.log('printing map inputs');
-        console.log(mapInputs);
         
         $.get('/map.json', mapInputs, get_waypoints);
         function get_waypoints(data){
@@ -108,12 +105,6 @@
                     content: 'hello'
                 });
               }
-
-            console.log('printing responseWaypoints');
-            console.log(responseWaypoints);
-
-            console.log('printing waypts');
-            console.log(waypts);
     
         directionsService.route({
           origin: start,
@@ -129,6 +120,64 @@
             window.alert('Directions request failed due to ' + status);
           }
         });
+
+        makeMarkersAndReport(data);
+
+        function makeMarkersAndReport(data) {
+
+    var markerInfo = data.art_info;
+    makeAndSetMarkers(markerInfo);
+
+    console.log(markerInfo);
+    console.log(markerInfo.length);
+
+}
+
+function makeAndSetMarkers(markerInfo) {
+
+    for (var i = 0; i < markerInfo.length; i++) {
+
+        var datapoint = markerInfo[i];
+        var markerLatLng = new google.maps.LatLng(datapoint.lat, datapoint.lng);
+        var contentString = makeContentString(datapoint);
+
+        var marker = new google.maps.Marker({
+            position: markerLatLng,
+            map: map
+        });
+
+        // Make infoWindows.
+        var infoWindow = new google.maps.InfoWindow();
+        bindInfoWindow(marker, map, infoWindow, contentString);
+    }
+}
+
+function bindInfoWindow(marker, map, infoWindow, contentString) {
+    // When a marker is moused-over, set the content for the info window with
+    // the string that's passed through, and then open the window with the new
+    // content above that marker.
+
+    google.maps.event.addListener(marker, 'mouseover', function () {
+        infoWindow.setContent(contentString);
+        infoWindow.open(map, marker);
+    });
+
+    // When a marker is moused-out, close the info window.
+
+    // google.maps.event.addListener(marker, 'mouseout', function () {
+    //     infoWindow.close();
+    // });
+}
+
+function makeContentString(datapoint) {
+    // Write contentString for infoWindow depending on forecast status.
+
+    var contentString;
+
+    contentString = datapoint.arttitle + "<br>" + datapoint.artist + "<br>" + datapoint.medium + "<br>" + "<a href='/artinfo/" + datapoint.artwork_id + "' target='_blank'>Details</a>"
+    
+    return contentString;
+}
     }
 }
 
