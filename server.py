@@ -54,7 +54,7 @@ def map_json():
 
     art_info = []
     for artwork in artworks:
-        art_info.append({'lat': artwork.lat, 'lng': artwork.lng, 'title': artwork.title, 'artist': artwork.artist, 'medium': artwork.medium})
+        art_info.append({'lat': artwork.lat, 'lng': artwork.lng, 'title': artwork.title, 'artist': artwork.artist, 'medium': artwork.medium, 'artwork_id': artwork.artwork_id}
     print art_info
 
     art_dict = {'waypoints': art_list, 'art_info': art_info}
