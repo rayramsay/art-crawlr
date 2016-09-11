@@ -96,7 +96,11 @@
             for (var i = 0; i < responseWaypoints.length; i++) {
                 waypts.push({
                     location: responseWaypoints[i],
-                    stopover: true
+                    stopover: true,
+                   
+                });
+                 var infowindow = new google.maps.InfoWindow({
+                    content: 'hello'
                 });
               }
 

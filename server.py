@@ -38,7 +38,7 @@ def homepage():
 def map_json():
 
     print "\nINSIDE MAP.JSON\n"
-    
+
     lat = request.args.get('latitude')
     lng = request.args.get('longitude')
     print lat
@@ -65,6 +65,14 @@ def map_render():
     lng = request.args.get('longitude')
 
     return render_template("map.html", lat=lat, lng=lng)
+
+@app.route('/artinfo/<int:artwork_id>')
+def art_info(artwork_id):
+
+    art_info  = db.session.query(Artwork).filter_by(artwork_id=artwork_id).first()
+
+    return render_template("artinfo.html", art_info=art_info)
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
