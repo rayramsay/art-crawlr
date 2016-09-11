@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Art Xplrr{% endblock %}
+
+
+
+{% block content %}
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="container" style="width: 100%; height: 100%">
+{{ art_info.artist }}<br>
+{{ art_info.credit_line }}<br>
+{{ art_info.location_description }}<br>
+{{ art_info.medium }}<br>
+{{ art_info.title }}<br>
+{{ art_info.address }}<br>
+</div>
+
+{% endblock %}
