@@ -45,6 +45,7 @@ def map_json():
     print lng
     address = get_address(lat, lng)
     zipcode = address.split(',')[-2]
+    print zipcode
 
     artworks = db.session.query(Artwork).filter_by(zipcode=zipcode).all()
     art_list = []
