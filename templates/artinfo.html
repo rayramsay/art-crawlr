@@ -1,23 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %}Art Xplrr{% endblock %}
+{% block title %}Art Xplorer{% endblock %}
 
 
 
 {% block content %}
 
-<br>
-<br>
-<br>
-<br>
-
-<div class="container" style="width: 100%; height: 100%">
-<h2>{{ art_info.title }}</h2><br>
-Artist Name: {{ art_info.artist }}<br>
-Credit: {{ art_info.credit_line }}<br>
-Location: {{ art_info.location_description }}<br>
-Medium: {{ art_info.medium }}<br>
-Address: {{ art_info.address }}<br>
+<div class="container" style="width: 80%; height: 100%">
+<img src="/static/ART-XPLRER_crop.jpg" height="200px">
+<h2>Art Xplorer - Art Work Details</h2>
+<h4>{{ art_info.title }}</h4>
+<span class="glyphicon glyphicon-user"></span><b>  Artist Name:</b> {{ art_info.artist }}<br>
+<span class="glyphicon glyphicon-gift"></span><b>  Credit:</b> {{ art_info.credit_line }}<br>
+<span class="glyphicon glyphicon-flag"></span><b>  Location:</b> {{ art_info.location_description }}<br>
+<span class="glyphicon glyphicon-pencil"></span><b>  Medium:</b> {{ art_info.medium }}<br>
+<span class="glyphicon glyphicon-home"></span><b>  Address:</b> {{ art_info.address }}<br>
 </div>
 
 {% endblock %}
