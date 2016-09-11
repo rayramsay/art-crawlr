@@ -101,9 +101,6 @@
                     stopover: true,
                    
                 });
-                 var infowindow = new google.maps.InfoWindow({
-                    content: 'hello'
-                });
               }
     
         directionsService.route({
@@ -180,7 +177,7 @@ function makeContentString(datapoint) {
 
     var contentString;
 
-    contentString = datapoint.arttitle + "<br>" + datapoint.artist + "<br>" + datapoint.medium + "<br>" + "<a href='/artinfo/" + datapoint.artwork_id + "' target='_blank'>Details</a>"
+    contentString = "<b>" + datapoint.arttitle + "</b><br><i>" + datapoint.artist + "</i><br>" + datapoint.medium + "<br>" + "<a href='/artinfo/" + datapoint.artwork_id + "' target='_blank'>Details</a>"
     
     return contentString;
 }
