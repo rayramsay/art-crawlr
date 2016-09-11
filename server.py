@@ -52,7 +52,12 @@ def map_json():
         art_list.append({'lat': artwork.lat, 'lng': artwork.lng})
     print art_list
 
-    art_dict = {'waypoints': art_list}
+    art_info = []
+    for artwork in artworks:
+        art_info.append({'lat': artwork.lat, 'lng': artwork.lng, 'title': artwork.title, 'artist': artwork.artist, 'medium': artwork.medium})
+    print art_info
+
+    art_dict = {'waypoints': art_list, 'art_info': art_info}
     print art_dict
     art_json = jsonify(art_dict)
     return art_json
@@ -65,6 +70,7 @@ def map_render():
     lng = request.args.get('longitude')
 
     return render_template("map.html", lat=lat, lng=lng)
+
 
 @app.route('/artinfo/<int:artwork_id>')
 def art_info(artwork_id):
