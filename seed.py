@@ -1,35 +1,30 @@
 import os
 import json
 import googlemaps
-from geopy.geocoders import Nominatim
 
-from model import *
-from server import app
+from model import Artwork
+# from server import app
+
+############# GLOBALS ##############
+# Remember to ``source secrets.sh``!
+GMAPS = googlemaps.Client(key=os.environ['GOOGLE_API_SERVER_KEY'])
+####################################
 
 
-def get_address(lat, lng):
+def get_zipcode(lat, lng):
     """Given lat and lng, returns zipcode."""
 
-    geolocator = Nominatim()
-    location = geolocator.reverse("%s, %s" % (lat, lng))
-    address = location.address
-    # zipcode = location.address.split(',')[-2]
-    return address
+    latlng = str(lat) + ',' + str(lng)
+    result = GMAPS.reverse_geocode(latlng)
+    zipcode = result[0]['address_components'][7]['long_name']
+    return zipcode
 
 
-def dictify(string):
-    """Given a JSON string, make it into a dictionary."""
-
-    return json.loads(string)
-
-
-def load_artworks(start,stop):
+def load_artworks(start, stop):
     """Load artworks from seed data into database."""
 
     print "Loading Artworks"
 
-    # Read SF_Civic_Art_Collection.csv file and insert data.
-    
     art_seed = open("seed_data/SF_Civic_Art_Collection.json")
     json_dict = json.load(art_seed)
     art_list = json_dict['data']
@@ -43,8 +38,7 @@ def load_artworks(start,stop):
         location_description = item[16]
         medium = item[17]
         title = item[19]
-        address = get_address(lat, lng)
-        zipcode = address.split(',')[-2]
+        zipcode = get_zipcode(lat, lng)
 
         print zipcode
 
@@ -55,7 +49,7 @@ def load_artworks(start,stop):
                         location_description=location_description,
                         medium=medium,
                         title=title,
-                        address=address,
+                        # address=address,
                         zipcode=zipcode)
 
     #     # We need to add to the session or it won't ever be stored
@@ -67,8 +61,8 @@ def load_artworks(start,stop):
 
 ################################################################################
 
-if __name__ == "__main__":
-    connect_to_db(app)
+#if __name__ == "__main__":
+    #connect_to_db(app)
 
     # In case tables haven't been created, create them
     # db.create_all()

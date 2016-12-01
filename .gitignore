@@ -1,3 +1,4 @@
 vagrant/
 secrets.sh
 *.pyc
+.DS_Store
